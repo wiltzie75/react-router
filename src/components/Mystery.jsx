@@ -1,0 +1,47 @@
+import { useState, useEffect } from "react";
+
+const Colors = () => {
+    const [color, setColor] = useState("");
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        async function fetchColors() {
+            try {
+                const response = await fetch("https://www.thecolorapi.com/random");
+                const color = await response.json();
+                console.log(color.rgb.value);
+                setColor(color.rgb.value);
+            } catch (error) {
+                setError(error)
+            }
+        }
+        fetchColors();
+    }, []);
+
+    async function handleClick() {
+            try {
+                const response = await fetch("https://www.thecolorapi.com/random");
+                const color = await response.json();
+                console.log(color.rgb.value);
+                setColor(color.rgb.value);
+            } catch (error) {
+                setError(error)
+            }
+        }
+        
+return ( 
+    <>
+        <div 
+            className="mystery" 
+            onClick={handleClick}
+            style={{ backgroundColor: color, color: "white" }}
+        >
+            <h1>{`MYSTERY COLOR IS: ${color}`}</h1>
+        </div>
+    </>
+
+ );
+
+}
+
+export default Colors;
