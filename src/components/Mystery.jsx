@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 const Colors = () => {
     const [color, setColor] = useState("");
     const [error, setError] = useState(null);
+    const [mystery, setMystery] = useState(false);
 
     useEffect(() => {
         async function fetchColors() {
@@ -16,17 +17,10 @@ const Colors = () => {
             }
         }
         fetchColors();
-    }, []);
+    }, [mystery]);
 
-    async function handleClick() {
-            try {
-                const response = await fetch("https://www.thecolorapi.com/random");
-                const color = await response.json();
-                console.log(color.rgb.value);
-                setColor(color.rgb.value);
-            } catch (error) {
-                setError(error)
-            }
+   function handleClick() {
+        setMystery(!mystery)
         }
         
 return ( 
